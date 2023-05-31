@@ -1,7 +1,5 @@
 import { PostActionTypes } from '../../types/post';
 
-const fetchAllPosts = () => ({
+export const fetchAllPosts = () => ({
 	type: PostActionTypes.FETCH_POSTS_REQUEST,
 });
-
-export default fetchAllPosts;

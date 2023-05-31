@@ -11,7 +11,7 @@ interface PostListProps {
 
 export const PostList = memo((props: PostListProps) => {
 	const { title } = props;
-	const fetchAllPosts = useActions();
+	const { fetchAllPosts } = useActions();
 	const posts = useSelector(getAllPosts);
 	const loading = useSelector(getPostLoading);
 	const error = useSelector(getPostError);
