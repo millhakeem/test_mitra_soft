@@ -1,5 +1,5 @@
 import { Card, Col, Row } from 'react-bootstrap';
-import { Avatar, AvatarSize } from '../components/Avatar/Avatar';
+import { Avatar, AvatarSize } from '../../components/Avatar/Avatar';
 
 export default function AboutPage() {
 	return (

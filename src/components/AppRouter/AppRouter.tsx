@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from '../../pages/HomePage';
-import AboutPage from '../../pages/AboutPage';
-import ProfilePage from '../../pages/ProfilePage';
-import NotFoundPage from '../../pages/NotFoundPage';
+import { AboutPageAsync as AboutPage } from '../../pages/AboutPage/AboutPage.async';
+import { HomePageAsync as HomePage } from '../../pages/HomePage/HomePage.async';
+import { NotFoundPageAsync as NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage.async';
+import { ProfilePageAsync as ProfilePage } from '../../pages/ProfilePage/ProfilePage.async';
 
 const AppRouter = () => (
 	<Routes>

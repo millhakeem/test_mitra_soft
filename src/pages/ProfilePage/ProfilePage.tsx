@@ -1,7 +1,7 @@
 import { Button, Col, Row } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import { PostList } from '../components/PostList/PostList';
-import { ProfileCard } from '../components/ProfileCard/ProfileCard';
+import { PostList } from '../../components/PostList/PostList';
+import { ProfileCard } from '../../components/ProfileCard/ProfileCard';
 
 const ProfilePage = () => {
 	const { id } = useParams<{ id: string }>();
