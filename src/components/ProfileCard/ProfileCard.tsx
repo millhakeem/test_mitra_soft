@@ -1,28 +1,42 @@
-import { memo } from 'react';
-import { Card } from 'react-bootstrap';
+import { memo, useEffect } from 'react';
+import { Card, Row, Spinner } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { useActions } from '../../hooks/useActions';
+import { getUserById, getUserError, getUserLoading } from '../../store/selectors/';
 
 interface ProfileCardProps {
 	userId: string;
 }
 
-const user = {
-	id: '1',
-	name: 'John Doe',
-	username: 'johndoe',
-	email: 'johndoe@ya.ru',
-	phone: '+7 (111) 111-11-11',
-	website: 'https://ya.ru',
-	address: {
-		street: 'sad',
-		suite: 'sadsad',
-		city: 'dsads',
-	},
-	company: {
-		name: 'asds',
-	},
-};
-
 export const ProfileCard = memo(({ userId }: ProfileCardProps) => {
+	const user = useSelector(getUserById(userId));
+	const loading = useSelector(getUserLoading);
+	const error = useSelector(getUserError);
+	const { fetchUserById } = useActions();
+
+	useEffect(() => {
+		fetchUserById(userId);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	if (loading) {
+		return (
+			<Row className='text-center mb-5'>
+				<h1 className='mb-5 text-center fw-bolder text-body'>Еще секундочку, пожалуйста</h1>
+				<Spinner
+					animation='border'
+					variant='dark'
+					className='mx-auto text-center'
+				/>
+			</Row>
+		);
+	}
+
+	if (error) {
+		return <h1 className=' text-center fw-bolder text-body'>{error}</h1>;
+	}
+
 	return (
 		<>
 			<h1 className='mb-5 text-center fw-bolder text-body'>Информация о пользователе:</h1>

@@ -28,7 +28,10 @@ const ProfilePage = () => {
 
 				<ProfileCard userId={id} />
 
-				<PostList title='Посты пользователя:' />
+				<PostList
+					userId={id}
+					title='Посты пользователя:'
+				/>
 			</Col>
 		</Row>
 	);

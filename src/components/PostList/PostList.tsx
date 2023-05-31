@@ -2,17 +2,19 @@ import { memo, useEffect } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
-import { getAllPosts, getPostError, getPostLoading } from '../../store/selectors';
+import { getPostError, getPostLoading, getPostsByUserId } from '../../store/selectors';
 import { PostCard } from './PostCard/PostCard';
 
 interface PostListProps {
 	title?: string;
+	userId?: string;
 }
 
-export const PostList = memo((props: PostListProps) => {
-	const { title } = props;
+export const PostList = memo((props: PostListProps): JSX.Element => {
+	const { userId = '', title } = props;
+
 	const { fetchAllPosts } = useActions();
-	const posts = useSelector(getAllPosts);
+	const posts = useSelector(getPostsByUserId(userId));
 	const loading = useSelector(getPostLoading);
 	const error = useSelector(getPostError);
 
@@ -21,7 +23,7 @@ export const PostList = memo((props: PostListProps) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	if (loading) {
+	if (loading && userId === '') {
 		return (
 			<Row className='text-center mb-5'>
 				<h2 className='mb-5 text-center fw-bolder text-body'>Еще секундочку, пожалуйста</h2>
@@ -32,6 +34,10 @@ export const PostList = memo((props: PostListProps) => {
 				/>
 			</Row>
 		);
+	}
+
+	if (loading) {
+		return <></>;
 	}
 
 	if (error) {
