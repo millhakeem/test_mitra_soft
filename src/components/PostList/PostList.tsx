@@ -1,16 +1,25 @@
-import { memo } from 'react';
-import { IPost } from '../../types/post';
+import { memo, useEffect } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { useActions } from '../../hooks/useActions';
+import { getAllPosts, getPostError, getPostLoading } from '../../store/selectors';
+import { PostCard } from './PostCard/PostCard';
 
 interface PostListProps {
 	title?: string;
-	posts: IPost[];
-	loading?: boolean;
-	error?: string | null;
 }
 
 export const PostList = memo((props: PostListProps) => {
-	const { title, posts, loading, error } = props;
+	const { title } = props;
+	const fetchAllPosts = useActions();
+	const posts = useSelector(getAllPosts);
+	const loading = useSelector(getPostLoading);
+	const error = useSelector(getPostError);
+
+	useEffect(() => {
+		fetchAllPosts();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	if (loading) {
 		return (
@@ -40,7 +49,10 @@ export const PostList = memo((props: PostListProps) => {
 					<h5 className='mb-2 text-center text-light'>{'Постов еще нет 8('}</h5>
 				)}
 				{posts.map((post) => (
-					<div key={post.id}>{post.title}</div>
+					<PostCard
+						key={post.id}
+						post={post}
+					/>
 				))}
 			</Col>
 		</>
