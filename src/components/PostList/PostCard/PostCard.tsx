@@ -3,6 +3,7 @@ import { Accordion, Button, Card, Col, Nav, Row, useAccordionButton } from 'reac
 import { Link } from 'react-router-dom';
 import { IPost } from '../../../types/post';
 import { Avatar, AvatarSize } from '../../Avatar/Avatar';
+import CommentList from '../../CommentList/CommentList';
 
 interface PostCardProps {
 	post: IPost;
@@ -59,7 +60,7 @@ export const PostCard = memo(({ post }: PostCardProps): JSX.Element => {
 					</Card.Header>
 					<Accordion.Collapse eventKey='0'>
 						<Card.Body className={showComments ? 'd-flex flex-column gap-3' : 'd-none'}>
-							{showComments && 'комментарии'}
+							{showComments && <CommentList postId={id} />}
 						</Card.Body>
 					</Accordion.Collapse>
 				</Card>
